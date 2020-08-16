@@ -2,12 +2,10 @@ library(dplyr)
 library(ggplot2)
 library(tidyr)
 library(gdata)
-library(rlist)
 library(data.table)
 
 setwd("./data")
 file.names <- dir()
-
 list.all <- lapply(file.names, FUN = read.table, header = T, sep = "\t", quote = "", fill = T)
 
 for (i in 1:length(list.all)) {
@@ -15,3 +13,4 @@ for (i in 1:length(list.all)) {
   colnames(list.all[[i]]) <- c("orf", "score", "sig")
   list.all[[i]] <- subset(list.all[[i]], list.all[[i]]$sig == "yes", c("orf", "score"))
 }
+
