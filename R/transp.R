@@ -1,8 +1,6 @@
 library(dplyr)
 library(ggplot2)
-library(tidyr)
 library(gdata)
-library(rlist)
 library(data.table)
 
 setwd("./data")
