@@ -6,13 +6,18 @@ library(data.table)
 
 # read and format data
 setwd("./data")
-compound.library <- read.table("compound_library" , header = T, sep = "\t", quote = "", fill = T)
+compound.library <- read.csv("compound_library.csv" , header = T, sep = ";", quote = "", fill = T)
+transp <- read.csv("transporters.csv", header = F)
+colnames(transp) <- c("orf")
 
-
+setwd("./compound")
 file.names <- dir()
-
-
+file.names <- file.names[1:10]
 sig.tables <- lapply(file.names, FUN = read.table, header = T, sep = "\t", quote = "", fill = T)
+
+setwd("../../")
+table(compound.library$source)
+sources <- as.data.frame(table(compound.library$source))
 
 for (i in 1:length(sig.tables)) {
   sig.tables[[i]] <- sig.tables[[i]][,c(2, 6, 8)]
@@ -20,8 +25,6 @@ for (i in 1:length(sig.tables)) {
   sig.tables[[i]] <- subset(sig.tables[[i]], sig.tables[[i]]$sig == "yes", c("orf", "score"))
 }
 
-transp <- read.csv("transporters.csv", header = F)
-colnames(transp) <- c("orf")
 
 # Count number of genes with significative values (w/o repetition)
 sig.rep <- data.frame()
@@ -117,5 +120,3 @@ summary(gene.freqs.transps)
 
 
 #Naural Products
-
-comp <- lapply(file.names, FUN = read.table, header = T, sep = "\t", quote = "", fill = T)
