@@ -6,7 +6,11 @@ library(data.table)
 
 # read and format data
 setwd("./data")
+compound.library <- read.table("compound_library" , header = T, sep = "\t", quote = "", fill = T)
+
+
 file.names <- dir()
+
 
 sig.tables <- lapply(file.names, FUN = read.table, header = T, sep = "\t", quote = "", fill = T)
 
@@ -110,3 +114,8 @@ gene.freqs.transps <- subset(gene.freqs, gene.freqs$orf %in% transp$orf, c("orf"
 summary(gene.freqs.transps)
 
 # Conclusão qtd ~ 2.5% e abd ~ 2.3%
+
+
+#Naural Products
+
+comp <- lapply(file.names, FUN = read.table, header = T, sep = "\t", quote = "", fill = T)
