@@ -4,6 +4,7 @@ library(ggplot2)
 library(gdata)
 library(data.table)
 
+getwd()
 # read and format data
 setwd("./data")
 compound.library <- read.csv("compound_library.csv" , header = T, sep = ";", quote = "", fill = T)
@@ -12,8 +13,9 @@ colnames(transp) <- c("orf")
 
 setwd("./compound")
 file.names <- dir()
-file.names <- file.names[1:10]
+file.names <- file.names[1200:1350]
 sig.tables <- lapply(file.names, FUN = read.table, header = T, sep = "\t", quote = "", fill = T)
+names(sig.tables) <- file.names
 
 setwd("../../")
 table(compound.library$source)
@@ -23,8 +25,12 @@ for (i in 1:length(sig.tables)) {
   sig.tables[[i]] <- sig.tables[[i]][,c(2, 6, 8)]
   colnames(sig.tables[[i]]) <- c("orf", "score", "sig")
   sig.tables[[i]] <- subset(sig.tables[[i]], sig.tables[[i]]$sig == "yes", c("orf", "score"))
-}
+  }
 
+#Natural and Drug-Like Libraries
+compound.source <- compound.library[,c(1,8)]
+nat.compounds <- subset(compound.source, compound.source$source %in% sources[c(8,11,12,13),1], c("Screen.ID" , "source"))
+syn.compounds <- subset(compound.source, !(compound.source$source %in% sources[c(8,11,12,13),1]), c("Screen.ID" , "source"))
 
 # Count number of genes with significative values (w/o repetition)
 sig.rep <- data.frame()
