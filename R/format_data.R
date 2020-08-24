@@ -6,6 +6,7 @@ getwd()
 setwd("./data")
 compound.library <- read.csv("compound_library.csv" , header = T, sep = ";", quote = "", fill = T)
 transp <- read.csv("transporters.csv", header = F)
+
 colnames(transp) <- c("orf")
 
 setwd("./compound")
