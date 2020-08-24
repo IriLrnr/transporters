@@ -11,8 +11,8 @@ colnames(transp) <- c("orf")
 setwd("./compound")
 file.names <- dir()
 file.names <- file.names[1000:1300]
-file.names
 sig.tables <- lapply(file.names, FUN = read.table, header = T, sep = "\t", quote = "", fill = T)
+store.sig.tables <- sig.tables 
 names(sig.tables) <- as.factor(file.names)
 
 setwd("../../")
@@ -32,8 +32,7 @@ for (i in 1:length(sig.tables)) {
   sig.tables[[i]] <- subset(sig.tables[[i]], sig.tables[[i]]$sig == "yes", c("orf", "score"))
   if (names(sig.tables)[i] %in% nat.compounds$Screen.ID) {
     nat.sig.tables <- append(nat.sig.tables, sig.tables[i])
-  }
-  else {
-    syn.sig.tables <- append(nat.sig.tables, sig.tables[i])
+  } else {
+    syn.sig.tables <- append(syn.sig.tables, sig.tables[i])
   }
 }
