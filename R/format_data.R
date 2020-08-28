@@ -7,7 +7,7 @@ transp <- read.csv("./data/transporters.csv", header = F)
 colnames(transp) <- c("orf")
 
 file.names <- dir("./data/compound/")
-file.names <- file.names[1000:1100]
+#file.names <- file.names[1000:1100]
 file.path <- paste0("./data/compound/", file.names)
 sig.tables <- lapply(file.path, FUN = read.table, header = T, sep = "\t", quote = "", fill = T)
 store.sig.tables <- sig.tables 
