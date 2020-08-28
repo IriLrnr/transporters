@@ -1,22 +1,18 @@
 library(data.table)
 library(dplyr)
 
-getwd()
 # read and format data
-setwd("./data")
-compound.library <- read.csv("compound_library.csv" , header = T, sep = ";", quote = "", fill = T)
-transp <- read.csv("transporters.csv", header = F)
+compound.library <- read.csv("./data/compound_library.csv" , header = T, sep = ";", quote = "", fill = T)
+transp <- read.csv("./data/transporters.csv", header = F)
 colnames(transp) <- c("orf")
 
-setwd("./compound")
-file.names <- dir()
-file.names <- file.names[1000:1300]
-sig.tables <- lapply(file.names, FUN = read.table, header = T, sep = "\t", quote = "", fill = T)
+file.names <- dir("./data/compound/")
+file.names <- file.names[1000:1100]
+file.path <- paste0("./data/compound/", file.names)
+sig.tables <- lapply(file.path, FUN = read.table, header = T, sep = "\t", quote = "", fill = T)
 store.sig.tables <- sig.tables 
 names(sig.tables) <- as.factor(file.names)
 
-setwd("../../")
-table(compound.library$source)
 sources <- as.data.frame(table(compound.library$source))
 
 #Natural and Drug-Like Libraries
