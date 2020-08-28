@@ -19,13 +19,19 @@ Print_Transporter_Ratio <- function (sig.tbls) {
   
   gene.freqs <- data.frame(table(sig.rep))
   colnames(gene.freqs)[[1]] <- c("orf")
-  print(summary(gene.freqs))
+  #print(summary(gene.freqs))
+  #all.gene.freqs <- sweep(gene.freqs, count.sig, Freq, FUN = '/')
+  #print(all.gene.freqs)
   
   gene.freqs.transps <- subset(gene.freqs, gene.freqs$orf %in% transp$orf, c("orf", 'Freq'))
-  print(summary(gene.freqs.transps))
+  #print(summary(gene.freqs.transps))
   
   sig.transp <- subset(sig.wo.rep, sig.wo.rep$orf %in% transp$orf) #121
   
+  print ("Ratio w/o repetition")
   print(nrow(sig.transp) / nrow(sig.wo.rep))
+  print ("Ratio w repetition")
+  print(count.transp.sig / count.sig)
+  
 }
 
